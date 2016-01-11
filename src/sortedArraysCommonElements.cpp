@@ -13,8 +13,8 @@ ERROR CASES: Return NULL for invalid inputs.
 
 NOTES:
 */
-
 #include <iostream>
+int equality(char A[], char B[]);
 
 struct transaction {
 	int amount;
@@ -23,5 +23,62 @@ struct transaction {
 };
 
 struct transaction * sortedArraysCommonElements(struct transaction *A, int ALen, struct transaction *B, int BLen) {
-	return NULL;
+	if (A == NULL || B == NULL)
+		return NULL;
+	struct transaction temp[10];
+	int flag = 0, i, j, k = 0;
+	for (i = 0; i<ALen; i++)
+	{
+		for (j = 0; j<BLen; j++)
+		{
+			if (A[i].amount == B[j].amount)
+			{
+				flag = 1;
+				break;
+			}
+		}
+		if (flag == 1)
+		{
+			int ans = equality(A[i].date, B[i].date);// if equality(description and date of A[i], description and date of B[i])==1 
+			// means we can add that Variable in our common variables
+			if (ans == 1)
+
+			{
+				int des = equality(A[i].description, B[i].description);
+				temp[k] = A[i];
+				k++;
+				flag = 0;
+
+			}
+			else
+				flag = 0;
+
+		}
+	}
+	if (k == 0)
+		return NULL;
+	else
+		return temp;
+}
+
+int equality(char A[], char B[])
+{
+	int flag = 0;
+	for (int i = 0; A[i] != '\0';)
+	{
+		if (A[i] == B[i])
+		{
+			flag = 1;
+			i++;
+		}
+		else
+		{
+			flag = 0;
+			break;
+		}
+	}
+	if (flag == 1)
+		return 1;
+	else
+		return 0;
 }
